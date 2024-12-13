@@ -11,7 +11,7 @@
         <p>Вы вошли как {{ user.telegramuser.username }}</p>
         <a href="{% url 'logout' %}" class="logout-button">Выйти</a>
     {% else %}
-        <a href="{% url 'generate_telegram_link' %}" class="telegram-button">
+        <a href="{% url 'generate_telegram_link' %}" class="telegram-button"  target="_blank">
             Войти через Telegram
         </a>
     {% endif %}
