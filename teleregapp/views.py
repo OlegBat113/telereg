@@ -76,4 +76,4 @@ def logout(request):
     logger.info(f"-> logout() ...")
     logger.info(f"Пользователь {request.user} вышел из системы")
     auth_logout(request)
-    return redirect('')
+    return redirect('/')
