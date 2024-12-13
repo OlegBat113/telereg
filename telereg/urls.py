@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from teleregapp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('teleregapp.urls')),
+    path('admin/', admin.site.urls),                         # Админка
+    path('', include('teleregapp.urls')),                    # включаем urls из приложения teleregapp
 ]

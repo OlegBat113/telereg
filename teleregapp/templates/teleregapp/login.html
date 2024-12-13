@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Войти через Telegram
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h1>Войти через Telegram</h1>
+    {% if is_authenticated %}
+        <p>Вы вошли как {{ user.telegramuser.telegram_username }}</p>
+    {% else %}
+        <a href="{% url 'generate_telegram_link' %}" class="telegram-button">
+            Войти через Telegram
+        </a>
+    {% endif %}
+</div>
+
+<script>
+// Проверяем статус авторизации каждые 2 секунды после нажатия кнопки "Войти через Telegram"
+
+function checkAuth() {
+    fetch('/check-auth/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.authenticated) {
+                window.location.reload();
+            }
+        });
+}
+
+const isAuthenticated = {{ is_authenticated|yesno:"true,false" }};
+
+console.log(isAuthenticated);
+
+// Проверка статуса авторизации (Использование с фильтром yesno)
+if (!isAuthenticated) {
+    console.log('Проверка статуса авторизации');
+    setInterval(checkAuth, 2000);
+}
+</script>
+{% endblock %}

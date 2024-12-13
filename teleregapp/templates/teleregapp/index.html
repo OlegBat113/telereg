@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{% block title %}Главная страница{% endblock %}</title>
-</head>
-<body>
-    <header>
-        <h1>Регистрация через телеграм-бот</h1>
-    </header>
+{% extends 'base.html' %}
 
-    <div class="content">
-        {% block content %}
-        {% for product in products %}
-            <p>{{ product }}</p>
-        {% endfor %}
-        {% endblock %}
-    </div>
+{% block title %}
+    Главная страница
+{% endblock %}
 
-    <footer>
-        <p>footer Регистрации через телеграм-бот</p>
-    </footer>
-</body>
-</html>
+{% block content %}
+    {% for product in products %}
+        <p>{{ product }}</p>
+    {% endfor %}
+{% endblock %}
