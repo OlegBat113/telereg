@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import TelegramUser
@@ -13,6 +13,7 @@ logger = logging.getLogger('teleregapp')
 
 # Главная страница
 def index(request):
+    logger.info(f"-> index() ...")
     context = {
         'products': ['Товар 1', 'Товар 2', 'Товар 3'],
     }
@@ -21,6 +22,7 @@ def index(request):
 
 #Создадим views для авторизации:
 def login_page(request):
+    logger.info(f"-> login_page() ...")
     logger.info(f"Пользователь {request.user} зашел на страницу входа")
     context = {
         'is_authenticated': request.user.is_authenticated,
@@ -30,16 +32,20 @@ def login_page(request):
 
 # Генерация ссылки для авторизации
 def generate_telegram_link(request):
+    logger.info(f"-> generate_telegram_link() ...")
     token = str(uuid.uuid4())
     request.session['auth_token'] = token
     logger.info(f"Сгенерирован новый токен авторизации: {token}")
     bot_link = f"https://t.me/{settings.TELEGRAM_BOT_USERNAME}?start={token}"
+    #bot_link = f"https://t.me/telereg2_bot?start=aaa"
     return redirect(bot_link)
 
 
 # Проверка статуса авторизации
 def check_auth(request):
+    logger.info(f"-> check_auth() ...")
     token = request.session.get('auth_token')
+    logger.info(f"Токен авторизации: {token}")
     if token:
         try:
             telegram_user = TelegramUser.objects.get(auth_token=token)
@@ -54,3 +60,10 @@ def check_auth(request):
             return JsonResponse({'authenticated': False})
     logger.warning("Попытка проверки авторизации без токена")
     return JsonResponse({'authenticated': False})
+
+
+def logout(request):
+    logger.info(f"-> logout() ...")
+    logger.info(f"Пользователь {request.user} вышел из системы")
+    auth_logout(request)
+    return redirect('login_page')

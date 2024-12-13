@@ -43,8 +43,10 @@ INSTALLED_APPS = [
 ]
 
 # Настройки Telegram бота
-TELEGRAM_BOT_TOKEN = '7659980154:AAFfwOqg0OeG1XlhZml0MRq0EKV6MY-KAnM'
-TELEGRAM_BOT_USERNAME = 'telereg_bot'
+TELEGRAM_BOT_TOKEN = '7729189921:AAGydWhGyGjthrs4gkK1xBp-Ra5PFxVSrUY'
+TELEGRAM_BOT_USERNAME = 'teleger2_bot'
+#TELEGRAM_BOT_TOKEN = '7659980154:AAFfwOqg0OeG1XlhZml0MRq0EKV6MY-KAnM'
+#TELEGRAM_BOT_USERNAME = 'teleger_bot'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
